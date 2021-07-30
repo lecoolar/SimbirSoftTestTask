@@ -14,7 +14,7 @@ namespace SimbirSoftTestTask
             string url = Console.ReadLine();
             ParseHtml parseHtml = new ParseHtml(url);
 
-            foreach (var word in parseHtml.CountWords)
+            foreach (var word in parseHtml.WordsCount)
             {
                 Console.WriteLine($"{word.Word} - {word.Count}");
             }

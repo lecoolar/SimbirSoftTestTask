@@ -11,8 +11,8 @@ namespace SimbirSoftTestTask
 {
     class ParseHtml
     {
-        private List<char> Spaces = new List<char>() { ' ', ',', '.', '!', '?', '"', ';', ':', '[', ']', '(', ')', '\n', '\r', '\t' };
-        public List<WordCountResult> CountWords { get; } = new List<WordCountResult>();
+        private List<char> _spaces = new List<char>() { ' ', ',', '.', '!', '?', '"', ';', ':', '[', ']', '(', ')', '\n', '\r', '\t' };
+        public List<WordCountResult> WordsCount { get; } = new List<WordCountResult>();
 
         public ParseHtml(string url)//конструктор класса - скачивает html страницу
         {
@@ -40,17 +40,21 @@ namespace SimbirSoftTestTask
             htmlPage = StripHTML(htmlPage);
             foreach (var c in htmlPage)
             {
-                if (!Spaces.Contains(c))
+                if (!_spaces.Contains(c))
                 {
                     outStr.Append(Char.ToUpper(c));
                 }
                 else if (outStr.Length != 0)
                 {
-                    var word = CountWords.FirstOrDefault(f => f.Word == outStr.ToString());
+                    var word = WordsCount.FirstOrDefault(f => f.Word == outStr.ToString());
                     if (word != null)
+                    {
                         word.Count += 1;
+                    }
                     else
-                        CountWords.Add(new WordCountResult(outStr.ToString()));
+                    {
+                        WordsCount.Add(new WordCountResult(outStr.ToString()));
+                    }
                     outStr.Clear();
                 }
             }
